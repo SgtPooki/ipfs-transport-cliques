@@ -21,7 +21,7 @@ export const builder: BuilderCallback<GlobalArgs, PrintArgs> = (yargv) => {
     .demandOption('limit')
     .option('start', {
       default: 0,
-      describe: 'Start printing from this record',
+      describe: 'Start printing from this record (inclusive)',
       type: 'number'
     })
 }
@@ -37,7 +37,7 @@ async function printRecords (argv: PrintArgs): Promise<void> {
   const parser = getParser(argv.csv)
 
   if (argv.start > 0) {
-    log(`Skipping the first ${argv.start - 1} record(s)`)
+    log(`Starting print at record ${argv.start}`)
   }
 
   let count = 0
@@ -47,10 +47,10 @@ async function printRecords (argv: PrintArgs): Promise<void> {
       continue
     }
 
-    process.stdout.write(`Item ${count++}: ${record['']}, ${record.peer_id}, ${record.agent_version}, ${record.maddr}\n`)
+    process.stdout.write(`Item ${++count}: ${record['']}, ${record.peer_id}, ${record.agent_version}, ${record.maddr}\n`)
 
     if (count - argv.start >= argv.limit) {
-      log.trace('Reached limit of %d records', argv.limit)
+      log.trace('Reached limit of %d record(s)', argv.limit)
       break
     }
   }
