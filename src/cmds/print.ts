@@ -37,7 +37,7 @@ async function printRecords (argv: PrintArgs): Promise<void> {
   const parser = getParser(argv.csv)
 
   if (argv.start > 0) {
-    log(`Skipping the first ${argv.start} records`)
+    log(`Skipping the first ${argv.start - 1} record(s)`)
   }
 
   let count = 0
@@ -47,9 +47,9 @@ async function printRecords (argv: PrintArgs): Promise<void> {
       continue
     }
 
-    process.stdout.write(`Item ${count++}: ${record.join(',')}\n`)
+    process.stdout.write(`Item ${count++}: ${record['']}, ${record.peer_id}, ${record.agent_version}, ${record.maddr}\n`)
 
-    if (count > argv.limit + argv.start) {
+    if (count - argv.start >= argv.limit) {
       log.trace('Reached limit of %d records', argv.limit)
       break
     }

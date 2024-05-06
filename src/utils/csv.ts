@@ -10,5 +10,5 @@ export function getParser (csvPath: string): Parser {
   const csvReadStream = createReadStream(csvPath)
   log.trace('Created read stream for %s', csvPath)
 
-  return csvReadStream.pipe(parse())
+  return csvReadStream.pipe(parse({ columns: true }))
 }
