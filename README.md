@@ -21,6 +21,37 @@ I imagine we also want to see how many relay nodes are active, and which transpo
 $ npm i ipfs-transport-cliques
 ```
 
+# Helpful commands
+
+
+## JSON
+
+You can output the json format of the CSV, with some additional data processing on multiaddrs for each Peer by using the `json` command
+
+### Output json
+
+```console
+node dist/src/index.js json peerids_agents_transports.csv
+```
+
+You should probably save to json file so you don't have to re-parse the csv every time
+
+```console
+node dist/src/index.js json peerids_agents_transports.csv > peerids_agents_transports.json
+```
+
+### Use jq to count browser dialable peers
+
+```console
+node dist/src/index.js json peerids_agents_transports.csv | jq '[ .[] | select(.maddrInfo.isBrowserDialable == true) ] | length'
+```
+
+or save to json file (see above).. so you don't have to re-parse the csv every time
+
+```console
+jq '[ .[] | select(.maddrInfo.isBrowserDialable == true) ] | length' peerids_agents_transports.json
+```
+
 # License
 
 Licensed under either of

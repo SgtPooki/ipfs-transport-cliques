@@ -80,6 +80,7 @@
     "csv-parse": "^5.5.5",
     "debug": "^4.3.4",
     "parse-csv": "^0.2.0",
+    "private-ip": "^3.0.2",
     "yargs": "^17.7.2"
   },
   "devDependencies": {

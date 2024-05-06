@@ -2,6 +2,7 @@ import { accessSync, constants } from 'node:fs'
 import { resolve } from 'node:path'
 import yargs from 'yargs'
 import * as defaultCmd from './cmds/default.js'
+import * as jsonCmd from './cmds/json.js'
 import * as printCmd from './cmds/print.js'
 import { enableDebugLog, enableVerboseLog, logger } from './utils/logger.js'
 
@@ -27,6 +28,7 @@ export const argv = yargs(process.argv.slice(2))
   .option('verbose', { alias: 'v', type: 'boolean', default: false, description: 'Run in verbose mode' })
   .command('$0 [csv]', defaultCmd.description, defaultCmd.builder, defaultCmd.handler)
   .command('print [csv]', printCmd.description, printCmd.builder, printCmd.handler)
+  .command('json [csv]', jsonCmd.description, jsonCmd.builder, jsonCmd.handler)
   .check((argv) => {
     log.trace('argv is %O', argv)
     if (argv.csv == null) {

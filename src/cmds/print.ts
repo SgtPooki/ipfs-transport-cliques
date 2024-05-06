@@ -32,9 +32,7 @@ export const handler = async (argv: PrintArgs): Promise<void> => {
 
 async function printRecords (argv: PrintArgs): Promise<void> {
   log('Printing records from %s', argv.csv)
-  log.trace('verbose test')
-  // const csvReadStream = createReadStream(argv.csv)
-  const parser = getParser(argv.csv)
+  const parser = getParser(argv.csv, { columns: true })
 
   if (argv.start > 0) {
     log(`Starting print at record ${argv.start}`)
